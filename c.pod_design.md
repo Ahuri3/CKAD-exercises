@@ -12,22 +12,6 @@
 ## Labels and Annotations
 kubernetes.io > Documentation > Concepts > Overview > Working with Kubernetes Objects > [Labels and Selectors](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors)
 
-### Create 3 pods with names nginx1,nginx2,nginx3. All of them should have the label app=v1
-
-<details><summary>show</summary>
-<p>
-
-```bash
-kubectl run nginx1 --image=nginx --restart=Never --labels=app=v1
-kubectl run nginx2 --image=nginx --restart=Never --labels=app=v1
-kubectl run nginx3 --image=nginx --restart=Never --labels=app=v1
-# or
-for i in `seq 1 3`; do kubectl run nginx$i --image=nginx -l app=v1 ; done
-```
-
-</p>
-</details>
-
 ### Show all labels of the pods
 
 <details><summary>show</summary>
@@ -35,18 +19,6 @@ for i in `seq 1 3`; do kubectl run nginx$i --image=nginx -l app=v1 ; done
 
 ```bash
 kubectl get po --show-labels
-```
-
-</p>
-</details>
-
-### Change the labels of pod 'nginx2' to be app=v2
-
-<details><summary>show</summary>
-<p>
-
-```bash
-kubectl label po nginx2 app=v2 --overwrite
 ```
 
 </p>
@@ -61,78 +33,6 @@ kubectl label po nginx2 app=v2 --overwrite
 kubectl get po -L app
 # or
 kubectl get po --label-columns=app
-```
-
-</p>
-</details>
-
-### Get only the 'app=v2' pods
-
-<details><summary>show</summary>
-<p>
-
-```bash
-kubectl get po -l app=v2
-# or
-kubectl get po -l 'app in (v2)'
-# or
-kubectl get po --selector=app=v2
-```
-
-</p>
-</details>
-
-### Add a new label tier=web to all pods having 'app=v2' or 'app=v1' labels
-
-<details><summary>show</summary>
-<p>
-
-```bash
-kubectl label po -l "app in(v1,v2)" tier=web
-```
-</p>
-</details>
-
-
-### Add an annotation 'owner: marketing' to all pods having 'app=v2' label
-
-<details><summary>show</summary>
-<p>
-
-```bash
-kubectl annotate po -l "app=v2" owner=marketing
-```
-</p>
-</details>
-
-### Remove the 'app' label from the pods we created before
-
-<details><summary>show</summary>
-<p>
-
-```bash
-kubectl label po nginx1 nginx2 nginx3 app-
-# or
-kubectl label po nginx{1..3} app-
-# or
-kubectl label po -l app app-
-```
-
-</p>
-</details>
-
-### Annotate pods nginx1, nginx2, nginx3 with "description='my description'" value
-
-<details><summary>show</summary>
-<p>
-
-
-```bash
-kubectl annotate po nginx1 nginx2 nginx3 description='my description'
-
-#or
-
-kubectl annotate po nginx{1..3} description='my description'
 ```
 
 </p>
@@ -156,30 +56,6 @@ kubectl get po nginx1 -o custom-columns=Name:metadata.name,ANNOTATIONS:metadata.
 ```
 
 As an alternative to using `| grep` you can use jsonPath like `kubectl get po nginx1 -o jsonpath='{.metadata.annotations}{"\n"}'`
-
-</p>
-</details>
-
-### Remove the annotations for these three pods
-
-<details><summary>show</summary>
-<p>
-
-```bash
-kubectl annotate po nginx{1..3} description-
-```
-
-</p>
-</details>
-
-### Remove these pods to have a clean state in your cluster
-
-<details><summary>show</summary>
-<p>
-
-```bash
-kubectl delete po nginx{1..3}
-```
 
 </p>
 </details>

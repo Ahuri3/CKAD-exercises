@@ -852,23 +852,6 @@ k exec -it $ns consumer -- /bin/sh
 
 kubernetes.io > Documentation > Tasks > Configure Pods and Containers > [Configure Service Accounts for Pods](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/)
 
-### See all the service accounts of the cluster in all namespaces
-
-<details><summary>show</summary>
-<p>
-
-```bash
-kubectl get sa --all-namespaces
-```
-Alternatively 
-
-```bash
-kubectl get sa -A
-```
-
-</p>
-</details>
-
 ### Create a new serviceaccount called 'myuser'
 
 <details><summary>show</summary>
